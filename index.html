@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Welcome</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background: linear-gradient(135deg, #1f2933, #111827);
+      color: #f9fafb;
+    }
+    header {
+      padding: 2rem;
+      text-align: center;
+    }
+    header h1 {
+      font-size: 2.5rem;
+      margin-bottom: 0.5rem;
+    }
+    header p {
+      color: #9ca3af;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+    main {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1.5rem;
+      padding: 2rem;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+    .card {
+      background: #111827;
+      border-radius: 12px;
+      padding: 1.5rem;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+    }
+    .card h2 {
+      margin-top: 0;
+      font-size: 1.25rem;
+    }
+    .card p {
+      color: #9ca3af;
+    }
+    footer {
+      text-align: center;
+      padding: 1.5rem;
+      color: #6b7280;
+      font-size: 0.9rem;
+    }
+    a {
+      color: #60a5fa;
+      text-decoration: none;
+    }
+    a:hover {
+      text-decoration: underline;
+    }
+    .tabs {
+      display: flex;
+      gap: 1rem;
+      margin-bottom: 1rem;
+      flex-wrap: wrap;
+    }
+    .tab {
+      background: #1f2933;
+      border: none;
+      color: #9ca3af;
+      padding: 1rem 2rem;
+      font-size: 1.2rem;
+      border-radius: 12px;
+      cursor: pointer;
+      text-align: center;
+      position: relative;
+    }
+    .tab.active {
+      background: #2563eb;
+      color: #ffffff;
+    }
+    .dropdown {
+      position: relative;
+      display: inline-block;
+    }
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      background-color: #1f2933;
+      min-width: 200px;
+      box-shadow: 0 8px 16px rgba(0,0,0,0.3);
+      border-radius: 8px;
+      z-index: 1;
+      flex-direction: column;
+    }
+    .dropdown-content a {
+      padding: 0.75rem 1rem;
+      text-decoration: none;
+      display: block;
+      color: #60a5fa;
+      border-radius: 0;
+    }
+    .dropdown-content a:hover {
+      background-color: #111827;
+    }
+    .dropdown:hover .dropdown-content {
+      display: flex;
+      flex-direction: column;
+    }
+    
+    /* Modal styles */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 1000;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.9);
+      overflow: auto;
+    }
+    .modal-content {
+      position: relative;
+      margin: 2rem auto;
+      max-width: 1200px;
+      padding: 2rem;
+    }
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 2rem;
+    }
+    .modal-header h2 {
+      margin: 0;
+      color: #f9fafb;
+    }
+    .close {
+      color: #9ca3af;
+      font-size: 2.5rem;
+      font-weight: bold;
+      cursor: pointer;
+      transition: color 0.3s;
+    }
+    .close:hover {
+      color: #f9fafb;
+    }
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1.5rem;
+    }
+    .gallery-item {
+      position: relative;
+      cursor: pointer;
+      border-radius: 12px;
+      overflow: hidden;
+      background: #1f2933;
+      aspect-ratio: 4/3;
+      transition: transform 0.3s;
+    }
+    .gallery-item:hover {
+      transform: scale(1.05);
+    }
+    .gallery-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .gallery-item-placeholder {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, #2563eb, #1e40af);
+      color: #f9fafb;
+      font-size: 1.5rem;
+      font-weight: bold;
+    }
+    
+    /* Lightbox for full image view */
+    .lightbox {
+      display: none;
+      position: fixed;
+      z-index: 2000;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.95);
+      align-items: center;
+      justify-content: center;
+    }
+    .lightbox img {
+      max-width: 90%;
+      max-height: 90%;
+      object-fit: contain;
+    }
+    .lightbox-close {
+      position: absolute;
+      top: 2rem;
+      right: 2rem;
+      color: #f9fafb;
+      font-size: 3rem;
+      font-weight: bold;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Welcome to Rollin' On Adventures!</h1>
+    <p>Explore my past projects, and shoot me an email for any inquires! Rollin' On: Where quality, creativity, and innovation meet.</p>
+  </header>
+  <main>
+    <div class="card">
+      <h2>About</h2>
+      <p>Hey everyone! My name is Zach Wortman. I grew up in rural PA, and I've always had an interest in mechanics, mechanical engineering, woodworking, and any sort of DIY project. Follow me in my journey as I aim to inspire other young people to pursue hobbies (or careers) in this type of work. My goal is to leave everyone entertained while also providing some educational value. Thanks for watching, and I look forward to hearing from you soon! 
+        -Zach.</p>
+    </div>
+    <div class="card">
+      <h2>Projects</h2>
+      <div class="tabs">
+        <div class="dropdown tab active">Inventions
+          <div class="dropdown-content">
+            <a href="#" onclick="openGallery('dirtbike'); return false;">Dirtbike Unicycle</a>
+            <a href="#" onclick="openGallery('drill'); return false;">Drill Lathe</a>
+          </div>
+        </div>
+        <a class="tab" href="#woodworking">Woodworking</a>
+        <a class="tab" href="#restoration">Restoration</a>
+      </div>
+    </div>
+    <div class="card">
+      <h2>Contact</h2>
+      <p>My Social Media: <a href="https://linktr.ee/rollinon" target="_blank">https://linktr.ee/rollinon</a></p>
+      <p>Email: <a href="mailto:rollinonadventures@gmail.com">rollinonadventures@gmail.com</a></p>
+    </div>
+  </main>
+  <footer>
+    © 2025 Zach Wortman. All rights reserved.
+  </footer>
+
+  <!-- Modal for Gallery -->
+  <div id="galleryModal" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 id="galleryTitle">Project Gallery</h2>
+        <span class="close" onclick="closeGallery()">&times;</span>
+      </div>
+      <div id="galleryContainer" class="gallery"></div>
+    </div>
+  </div>
+
+  <!-- Lightbox for full image view -->
+  <div id="lightbox" class="lightbox" onclick="closeLightbox()">
+    <span class="lightbox-close">&times;</span>
+    <img id="lightboxImg" src="" alt="Full size image">
+  </div>
+
+  <script>
+    const galleries = {
+      dirtbike: {
+        title: "Dirtbike Unicycle",
+        images: [
+          { src: "https://placehold.co/600x400/2563eb/ffffff?text=Dirtbike+1", alt: "Dirtbike Unicycle - Image 1" },
+          { src: "https://placehold.co/600x400/1e40af/ffffff?text=Dirtbike+2", alt: "Dirtbike Unicycle - Image 2" },
+          { src: "https://placehold.co/600x400/3b82f6/ffffff?text=Dirtbike+3", alt: "Dirtbike Unicycle - Image 3" },
+          { src: "https://placehold.co/600x400/2563eb/ffffff?text=Dirtbike+4", alt: "Dirtbike Unicycle - Image 4" },
+          { src: "https://placehold.co/600x400/1e40af/ffffff?text=Dirtbike+5", alt: "Dirtbike Unicycle - Image 5" },
+          { src: "https://placehold.co/600x400/3b82f6/ffffff?text=Dirtbike+6", alt: "Dirtbike Unicycle - Image 6" }
+        ]
+      },
+      drill: {
+        title: "Drill Lathe",
+        images: [
+          { src: "https://placehold.co/600x400/059669/ffffff?text=Drill+Lathe+1", alt: "Drill Lathe - Image 1" },
+          { src: "https://placehold.co/600x400/047857/ffffff?text=Drill+Lathe+2", alt: "Drill Lathe - Image 2" },
+          { src: "https://placehold.co/600x400/10b981/ffffff?text=Drill+Lathe+3", alt: "Drill Lathe - Image 3" },
+          { src: "https://placehold.co/600x400/059669/ffffff?text=Drill+Lathe+4", alt: "Drill Lathe - Image 4" }
+        ]
+      }
+    };
+
+    function openGallery(projectName) {
+      const modal = document.getElementById('galleryModal');
+      const title = document.getElementById('galleryTitle');
+      const container = document.getElementById('galleryContainer');
+      const gallery = galleries[projectName];
+      
+      if (!gallery) return;
+      
+      title.textContent = gallery.title;
+      container.innerHTML = '';
+      
+      gallery.images.forEach((img, index) => {
+        const item = document.createElement('div');
+        item.className = 'gallery-item';
+        item.onclick = () => openLightbox(img.src);
+        
+        const image = document.createElement('img');
+        image.src = img.src;
+        image.alt = img.alt;
+        
+        item.appendChild(image);
+        container.appendChild(item);
+      });
+      
+      modal.style.display = 'block';
+    }
+
+    function closeGallery() {
+      document.getElementById('galleryModal').style.display = 'none';
+    }
+
+    function openLightbox(imgSrc) {
+      const lightbox = document.getElementById('lightbox');
+      const lightboxImg = document.getElementById('lightboxImg');
+      lightboxImg.src = imgSrc;
+      lightbox.style.display = 'flex';
+    }
+
+    function closeLightbox() {
+      document.getElementById('lightbox').style.display = 'none';
+    }
+
+    // Close modal when clicking outside of it
+    window.onclick = function(event) {
+      const modal = document.getElementById('galleryModal');
+      if (event.target === modal) {
+        closeGallery();
+      }
+    }
+  </script>
+</body>
+</html>
